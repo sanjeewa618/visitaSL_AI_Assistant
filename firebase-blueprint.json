@@ -1,0 +1,75 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Stores user preferences and basic info",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "preferences": { "type": "object" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "ChatSession": {
+      "title": "Chat Session",
+      "description": "A single conversation thread",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "title": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "lastMessageAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "title"]
+    },
+    "ChatMessage": {
+      "title": "Chat Message",
+      "description": "Individual message in a session",
+      "type": "object",
+      "properties": {
+        "sessionId": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "assistant"] },
+        "content": { "type": "string" },
+        "metadata": { "type": "object" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["sessionId", "role", "content"]
+    },
+    "TripPlan": {
+      "title": "Trip Plan",
+      "description": "Saved itinerary for a user",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "location": { "type": "string" },
+        "days": { "type": "integer" },
+        "itinerary": { "type": "array" },
+        "budget": { "type": "object" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "location", "days"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}": {
+      "schema": "UserProfile",
+      "description": "User profiles"
+    },
+    "/users/{uid}/sessions/{sessionId}": {
+      "schema": "ChatSession",
+      "description": "User chat sessions"
+    },
+    "/users/{uid}/sessions/{sessionId}/messages/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "Messages within a session"
+    },
+    "/users/{uid}/trips/{tripId}": {
+      "schema": "TripPlan",
+      "description": "User saved trips"
+    }
+  }
+}

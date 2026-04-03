@@ -1,0 +1,8 @@
+{
+  "name": "visitaSL",
+  "description": "Your professional AI-powered Sri Lanka tourism assistant for trip planning, route optimization, and local discovery.",
+  "requestFramePermissions": [
+    "microphone",
+    "geolocation"
+  ]
+}
